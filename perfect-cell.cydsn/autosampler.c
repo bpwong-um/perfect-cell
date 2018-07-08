@@ -8,6 +8,7 @@
 
 #include <device.h>
 #include <string.h>
+#include "misc.h"
 #include "autosampler.h"
 
 // prototype bottle_count interrupt
@@ -55,6 +56,12 @@ uint8 autosampler_take_sample(uint8 *count){
     
     uint32 i = 0u, delay = 100u, interval;
     
+    // Start the Pulse MUX
+    start_Pulse_MUX();
+
+    // Set Pulse MUX to read from 1st input
+    Pulse_MUX_Controller_Write(0u);    
+    
     // Reset the pulse Counter
     PulseCounter_WriteCounter(0u);
     autosampler_state = AUTOSAMPLER_STATE_BUSY;
@@ -89,6 +96,9 @@ uint8 autosampler_take_sample(uint8 *count){
     }
     
     autosampler_state = AUTOSAMPLER_STATE_IDLE;
+
+    // Save configuration + put Pulse MUX to sleep
+    stop_Pulse_MUX();    
     
     //*count = BottleCount_Read();
     count2 = PulseCounter_ReadCounter();
