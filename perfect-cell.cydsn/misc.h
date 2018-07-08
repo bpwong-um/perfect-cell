@@ -10,6 +10,34 @@
 #include <device.h>
 
 /**
+ * @brief Start the Analog Mux AMUX and ADC.
+ *
+ * @return 1u on success
+ */    
+uint8 start_AMUX();
+
+/**
+ * @brief Stop the Analog Mux AMUX and ADC.
+ *
+ * @return 1u on success
+ */
+uint8 stop_AMUX();
+
+/**
+ * @brief Start the Digital Mux Pulse_MUX_Controller.
+ *
+ * @return 1u on success
+ */
+uint8 start_Pulse_MUX();
+
+/**
+ * @brief Stop the Digital MUX Pulse_MUX_Controller.
+ *
+ * @return 1u on success
+ */
+uint8 stop_Pulse_MUX();
+    
+/**
  * @brief Reads the current battery voltage
  *
  * @return Battery voltage as a 32-bit float
