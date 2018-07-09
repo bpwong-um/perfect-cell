@@ -340,7 +340,7 @@ uint8 zip_valves(char *labels[], float readings[], uint8 *array_ix, int *valve_t
                     // in the future, consider char *valve_triggers[] = {"valve_trigger", "valve_2_trigger"};
                     //                         char *valve_poses[]    = {"valve_pos", "valve_2_pos"};  
                     labels[*array_ix] = "valve_trigger";
-                    readings[*array_ix] = -1 * k;
+                    readings[*array_ix] = -1 * (k+1); // valve_trigger must be less than 0 to avoid triggering the valves
                     (*array_ix) += 1;
                 }
             
@@ -356,7 +356,7 @@ uint8 zip_valves(char *labels[], float readings[], uint8 *array_ix, int *valve_t
                     // in the future, instead of "which_valve", consider parsing valve_flag in move_valves()
                     
                     labels[*array_ix] = "valve_2_trigger";
-                    readings[*array_ix] = -1 * k;
+                    readings[*array_ix] = -1 * (k+1); // valve_trigger must be less than 0 to avoid triggering the valves
                     (*array_ix) += 1;
                 } 
                 
