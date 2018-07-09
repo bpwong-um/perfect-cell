@@ -296,7 +296,7 @@ int move_valves(int valve_ref, float32* valve_pos, int valve_flag, uint8 potenti
 
 uint8 zip_valves(char *labels[], float readings[], uint8 *array_ix, int *valve_trigger, uint8 max_size, int valve_flag){
 
-    uint8 nvars = 0, k = 0;
+    uint8 nvars = 2, k = 0, which_valve = 0;
     float32 *valve_pos;
     
     // Ensure we don't access nonexistent array index
@@ -304,11 +304,13 @@ uint8 zip_valves(char *labels[], float readings[], uint8 *array_ix, int *valve_t
     for (k = 0; k < N_VALVES; k++) {
         if (0x00000001 & valve_flag >> k) {
             
+            /* Redundant
             if (*valve_trigger >= 0) { 
                 // add one var for the acknowledgement; 
                 // another for the potentiometer/reed switch
-                nvars += 2; 
+                nvars = 2; 
             }
+            */
 
             // Return if max_size is exceeded
             if (*array_ix + nvars >= max_size) {
@@ -326,11 +328,14 @@ uint8 zip_valves(char *labels[], float readings[], uint8 *array_ix, int *valve_t
             
             // Move one valve at a time, all to the same desired position (valve_trigger)
             // and then update the labels and readings
+            // (To move two valves to different positions, two commands must be sent to the server,
+            // where the flag for only one valve is set at a time.)
             // - Move and Update valve 1
-            if (k % 2 == 1) {
+            if (k % 2 == 0) {
                 if (*valve_trigger >= 0 && *valve_trigger <= 100) {
-            	    *valve_trigger = move_valves(*valve_trigger, valve_pos, 1u, potentiometer_flag);
-                    // in the future, instead of 1u, consider parsing valve_flag in move_valves()
+                    which_valve = 1u;
+            	    move_valves(*valve_trigger, valve_pos, which_valve, potentiometer_flag);
+                    // in the future, instead of "which_valve", consider parsing valve_flag in move_valves()
                     
                     // in the future, consider char *valve_triggers[] = {"valve_trigger", "valve_2_trigger"};
                     //                         char *valve_poses[]    = {"valve_pos", "valve_2_pos"};  
@@ -346,8 +351,9 @@ uint8 zip_valves(char *labels[], float readings[], uint8 *array_ix, int *valve_t
             // - Move and Update valve 2
             else { // (k % 2 == 0) 
                 if (*valve_trigger >= 0 && *valve_trigger <= 100) {
-            	    *valve_trigger = move_valves(*valve_trigger, valve_pos, 0u, potentiometer_flag);
-                    // in the future, instead of 0u, consider parsing valve_flag in move_valves()
+                    which_valve = 2u;
+            	    move_valves(*valve_trigger, valve_pos, which_valve, potentiometer_flag);
+                    // in the future, instead of "which_valve", consider parsing valve_flag in move_valves()
                     
                     labels[*array_ix] = "valve_2_trigger";
                     readings[*array_ix] = -1 * k;
