@@ -18,7 +18,7 @@ uint8 SampleCount = 0, SampleCount1 = 0, autosampler_state;;
 
 uint8 autosampler_start(){
     isr_SampleCounter_StartEx(isr_SampleCounter);
-    BottleCounter_Start();
+    PulseCounter_Start();
     autosampler_state = AUTOSAMPLER_STATE_OFF;
     
     return 1u;
@@ -55,8 +55,8 @@ uint8 autosampler_take_sample(uint8 *count){
     
     uint32 i = 0u, delay = 100u, interval;
     
-    // Reset the bottle Counter
-    BottleCounter_WriteCounter(0u);
+    // Reset the pulse Counter
+    PulseCounter_WriteCounter(0u);
     autosampler_state = AUTOSAMPLER_STATE_BUSY;
             
     // Send PULSE_COUNT pulses @ 10Hz to trigger sampler
@@ -91,7 +91,7 @@ uint8 autosampler_take_sample(uint8 *count){
     autosampler_state = AUTOSAMPLER_STATE_IDLE;
     
     //*count = BottleCount_Read();
-    count2 = BottleCounter_ReadCounter();
+    count2 = PulseCounter_ReadCounter();
     *count = count2;
     return 1u;
 }
