@@ -93,7 +93,7 @@ void main() {
     */
     
     // Test valve pins
-    test_valve();
+    test_valves();
 
     // Update influxdb tags
     #if USE_INFLUXDB
