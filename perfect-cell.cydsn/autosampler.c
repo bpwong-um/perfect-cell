@@ -67,7 +67,7 @@ uint8 autosampler_take_sample(uint8 *count){
         CyDelay(100u);
     }
     
-    interval =  2u*60*1000/delay;           // Wait Max of 2 Minutes for distributor arm to move
+    interval =  3*60*1000/delay;           // Wait Max of 3 Minutes for distributor arm to move
     
     for (i = 0; i < interval ; i++) {  
         CyDelay(delay);
@@ -79,7 +79,7 @@ uint8 autosampler_take_sample(uint8 *count){
     
     if (Pin_Sampler_Completed_Sample_Read() != 0) {
         
-        interval =  4u*60*1000/delay;       // Wait Max of 4 Minutes for pumping to complete
+        interval =  10u*60*1000/delay;       // Wait Max of 10 Minutes for pumping to complete
         for (i = 0; i < interval ; i++) { 
             CyDelay(delay);
             if (Pin_Sampler_Completed_Sample_Read()==0) { // Event pin on autosampler is HI
