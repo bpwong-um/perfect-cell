@@ -30,7 +30,11 @@ uint8 read_420mA(float32 *v_420mA) {
     
     /* Start the Mux and select 4th input */
     AMux_Start();
-    AMux_Select(3u);
+    //AMux_Select(3u); 
+    /* SD Card uses P2[1], which was previously assigned to 420mA sensor. 
+       For now, overload Valve_2_POS and V_420mA
+    */    
+    AMux_Select(2u); 
     
 	/* Read the voltage */
     reading = VBAT_ADC_Read32();
