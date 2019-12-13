@@ -32,7 +32,7 @@ uint8 autosampler_stop() {
 Start the autosampler.  Then power it on.
 */
 uint8 autosampler_power_on() {
-    Pin_Sampler_Power_Write(1u);
+    Valve_POS_EN_Write(1u);
     CyDelay(1000u);//give the sampler time to boot
     
     autosampler_state = AUTOSAMPLER_STATE_IDLE;
@@ -41,7 +41,7 @@ uint8 autosampler_power_on() {
 }
 
 uint8 autosampler_power_off() {
-    Pin_Sampler_Power_Write(0u);
+    Valve_POS_EN_Write(0u);
     autosampler_state = AUTOSAMPLER_STATE_OFF;
     
     return 1u;

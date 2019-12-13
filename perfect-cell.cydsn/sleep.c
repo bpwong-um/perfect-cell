@@ -39,7 +39,7 @@ void go_to_sleep(int sleeptimer, uint8 *awake){
     // Set Drive mode to Strong Drive
     VBAT_SetDriveMode(CY_PINS_DM_STRONG);
     Valve_POS_SetDriveMode(CY_PINS_DM_STRONG);
-    Valve_2_POS_SetDriveMode(CY_PINS_DM_STRONG);
+    //Valve_2_POS_SetDriveMode(CY_PINS_DM_STRONG);
     SDI12_Data_SetDriveMode(CY_PINS_DM_STRONG);
     CyPins_SetPinDriveMode(CYREG_PRT3_PC6, CY_PINS_DM_STRONG); // Telit_rx              (Hi-Z Digital)
     CyPins_SetPinDriveMode(CYREG_PRT0_PC5, CY_PINS_DM_STRONG); // toughsonic_rs485_neg  (Hi-Z Analog)
@@ -80,7 +80,7 @@ void go_to_sleep(int sleeptimer, uint8 *awake){
     // Reset Drive mode
     VBAT_SetDriveMode(CY_PINS_DM_ALG_HIZ);
     Valve_POS_SetDriveMode(CY_PINS_DM_ALG_HIZ);
-    Valve_2_POS_SetDriveMode(CY_PINS_DM_ALG_HIZ);
+    //Valve_2_POS_SetDriveMode(CY_PINS_DM_ALG_HIZ);
     SDI12_Data_SetDriveMode(CY_PINS_DM_RES_DWN);
     CyPins_SetPinDriveMode(CYREG_PRT3_PC6, CY_PINS_DM_DIG_HIZ); // Telit_rx              (Hi-Z Digital)
     CyPins_SetPinDriveMode(CYREG_PRT0_PC5, CY_PINS_DM_ALG_HIZ); // toughsonic_rs485_neg  (Hi-Z Analog)

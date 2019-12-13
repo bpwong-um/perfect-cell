@@ -22,7 +22,7 @@ int test_valve(){
 		Valve_IN_Write(1u);
 		CyDelay(1000u);
 		Valve_IN_Write(0u);
-        
+/*        
 		Valve_2_OUT_Write(1u);
 		CyDelay(1000u);
 		Valve_2_OUT_Write(0u);
@@ -30,7 +30,7 @@ int test_valve(){
 		Valve_2_IN_Write(1u);
 		CyDelay(1000u);
 		Valve_2_IN_Write(0u);
-                
+*/                
 	}
     return 1;
 }
@@ -233,6 +233,8 @@ uint8 zip_valve_2(char *labels[], float readings[], uint8 *array_ix, int *valve_
     if(*array_ix + nvars >= max_size){
         return *array_ix;
     }
+        /* (bpwong-um - 2019/12/13) Pass through
+    
         // If zero, open the valve completely
         // IMPORTANT: If there is a "null" entry,
         //            intparse_influxdb returns 0
@@ -249,7 +251,8 @@ uint8 zip_valve_2(char *labels[], float readings[], uint8 *array_ix, int *valve_
         } else {
             // For now, do nothing for the other cases
         }
-        
+        */
+    
         // Acknowledge the trigger by updating it to -1
         // -1, and negative values are reserved for actuator response
         labels[*array_ix] = "valve_2_trigger";
