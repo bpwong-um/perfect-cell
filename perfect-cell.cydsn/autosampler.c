@@ -132,4 +132,30 @@ CY_ISR(isr_SampleCounter){
     SampleCount1++;
 }
 
+//*  Steps for Testing the autosampler *//
+// - Enter Debug Mode
+// - Insert Breakpoint at main.c:154
+// - Run 
+// - Set next instruction at data.c:185
+// - Manually set autosampler_flag to 1
+// - Manually set autosampler_trigger to 1
+// - Insert Breakpoint at autosampler.c:102
+// - Run
+// - Set next instuction at autosampler.c:105
+// - Insert Breakpoint at autosampler.c:114
+// - Run
+// - Insert Breakpoint at autosampler.c:52
+// - The value *referenced* by [count] should be 0 (or less than MAX_BOTTLE_COUNT)
+//   Check by hovering over the variable and cliking the [+] button to expand// 
+// - NOTE: Insert Breakpoint at autosampler.c:72 if you want to 
+//         skip waiting for the autosampler to respond
+//         and then set next instruction at autosampler.c:91 
+// - Insert Breakpoint at autosampler.c:96
+// - Run
+// - Check the value of [count2] at autosampler.c:94 to double check the bottle counter
+//   by hovering over the variable
+// - Run
+// - Relay should click as it opens again, turning off the autosampler and the yellow light if it is enabled
+// - Done
+
 /* [] END OF FILE */
